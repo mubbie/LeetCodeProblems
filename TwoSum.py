@@ -36,7 +36,11 @@ class Solution:
 # can you come up with an algorithm that is less than O(n^2)?
 
 # thinking:
-
+    # have a dictionary
+    # iterate through the list
+        # compute the required difference
+        # if the difference is in the dictionary
+        # return the indices
 
 class Solution2:
     def twoSum(self, nums: list[int], target: int) -> list[int]:
