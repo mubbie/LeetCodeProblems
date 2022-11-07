@@ -1,5 +1,7 @@
 # Problem: https://leetcode.com/problems/two-sum/
 # Leetcode Easy
+import random
+
 
 # thinking:
 # input -> array of integers, integer (target)
@@ -101,4 +103,95 @@ for a, b in enumerate(testList):
         
         Solution 1 (Time to Run): 55 ms, 60 ms, 69 ms, 68 ms, 51 ms
         Solution 2 (Time to Run): 71 ms, 57 ms, 58 ms, 46 ms, 70 ms
+        
+        - but this size might not be the best to test on
+        - from chat with Ike: 
+                Time complexity is a heuristic to determine how much the time 
+                taken for the algorithm to run grows based on the input  
+                
+        - generate large lists (size 1000):
+            a. [.., .., solution, solution]
+            b. [.., solution, solution, ..]
+            c. [solution, .., .., solution]
+            d. [.., solution, .., solution, ..]   
+"""
+
+a = list()
+b = list()
+c = list()
+d = list()
+
+# add 1000 items to each list
+for index in range(0, 1000):
+    a.append(random.randint(10, 1000))
+    b.append(random.randint(10, 1000))
+    c.append(random.randint(10, 1000))
+    d.append(random.randint(10, 1000))
+
+# plant solutions are some indices
+# target = 9, solution: 4, 5
+a[998] = 4
+a[999] = 5
+b[499] = 5
+b[500] = 4
+c[0] = 4
+c[999] = 5
+d[random.randint(0, 999)] = 4
+d[random.randint(0, 999)] = 5
+
+print("\nTest Lists:")
+print(a, "\n")
+print(b, "\n")
+print(c, "\n")
+print(d, "\n")
+print("Target: 9")
+
+"""
+    RESULTS: 
+        Size: 1000
+        
+        Pattern: 
+            a. [.., .., solution, solution]
+            b. [.., solution, solution, ..]
+            c. [solution, .., .., solution]
+            d. [.., solution, .., solution, ..] 
+            
+        Populating lists:
+            for index in range(0, 1000):
+                a.append(random.randint(10, 1000))
+                b.append(random.randint(10, 1000))
+                c.append(random.randint(10, 1000))
+                d.append(random.randint(10, 1000))
+            
+        Planting Solutions: 
+            a[998] = 4
+            a[999] = 5
+            b[499] = 5
+            b[500] = 4
+            c[0] = 4
+            c[999] = 5
+            d[random.randint(0, 999)] = 4
+            d[random.randint(0, 999)] = 5
+            
+        RUNTIME: 
+            NOTE: Second Run is after refreshing the page, did not clear cache at all
+            NOTE: For d., I have no clue were the results are so it is possible they 
+                  were placed at the same position. In which case the test has no solution.
+                  But I kept it that way to allow things stay random. If there are numbers, there was a solution.
+            Solution 1 (Brute force): 
+                a: 282 ms, 389 ms, 306 ms, 259 ms, 280 ms
+                b: 147 ms, 192 ms, 170 ms, 157 ms, 160 ms
+                c: 50 ms? (makes sense because solution at 0, 999),
+                     37 ms, 66 ms, 58 ms, 60 ms
+                d: 55 ms, 110 ms, 107 ms, 51 ms, 103 ms
+            
+            Solution 2: 
+                a: 68 ms, 30 ms, 62 ms, 94 ms, 44 ms
+                b: 66 ms, 67 ms, 64 ms, 43 ms, 
+                    97 ms (this was after for some reason 
+                    I could not run the code again and needed to sign in again)
+                c: 64 ms, 73 ms, 90 ms, 65 ms, 63 ms
+                d: 60 ms, 61 ms, 66 ms, 57 ms, 65 ms
+                
+            NOTE: For d. it turns out the solutions were at indices [236, 777]
 """
