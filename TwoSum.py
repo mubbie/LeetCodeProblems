@@ -18,6 +18,7 @@ import random
 # for each item, iterate through the array again
 # when a sum is found, return it
 class Solution:
+    @staticmethod
     def twoSum(self, nums: list[int], target: int) -> list[int]:
         """
         BRUTE FORCE SOLUTION
