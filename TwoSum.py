@@ -1,5 +1,5 @@
 # Problem: https://leetcode.com/problems/two-sum/
-# Leetcode Easy
+# Leetcode EASY
 import random
 
 

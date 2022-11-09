@@ -1,5 +1,5 @@
 # Problem: https://leetcode.com/problems/longest-substring-without-repeating-characters/
-# Leetcode Medium
+# Leetcode MEDIUM
 
 # thinking:
 # input -> string
