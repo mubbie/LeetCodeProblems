@@ -39,6 +39,7 @@
     see the code below for the rest of the computation
 """
 
+
 # ListNodeDefinition
 # from LeetCode:
 # Definition for singly-linked list.
@@ -51,6 +52,7 @@ class ListNode:
         """
         self.val = val
         self.next = next
+
 
 class Solution:
     @staticmethod
@@ -68,7 +70,37 @@ class Solution:
         if sumDigs <= 9:
             return 0, sumDigs
         else:
-            return sumDigs//10, sumDigs%10
+            return sumDigs // 10, sumDigs % 10
+
+    @staticmethod
+    def addTwoNumbers2(l1: ListNode, l2: ListNode) -> ListNode:
+        """
+        More Efficient Solution
+        Given two non-empty linked lists representing two negative numbers
+        The digits are stored in reverse order and each node contains a single digit
+        Adds the two numbers and returns the sum as a linked list
+        :param l1: the first linked list
+        :param l2: the second linked list
+        :return: the sum of the two linked lists
+        \n
+        TIME COMPLEXITY:
+        Let len(l1) = n; len(l2) = m
+        Worst Case: O(n+m+1)
+        """
+        output = ListNode(0)
+        root = output
+        carry = 0
+        while l1 or l2 or carry:
+            if l1:
+                carry += l1.val
+                l1 = l1.next
+            if l2:
+                carry += l2.val
+                l2 = l2.next
+            root.next = ListNode(carry % 10)
+            carry = carry // 10
+            root = root.next
+        return output.next
 
     @staticmethod
     def addTwoNumbers(l1: ListNode, l2: ListNode) -> ListNode:
@@ -79,7 +111,7 @@ class Solution:
         :param l1: the first linked list
         :param l2: the second linked list
         :return: the sum of the two linked lists
-
+        \n
         TIME COMPLEXITY:
         Let n be the size of the larger list
         Let m be the size of the smaller list
@@ -89,6 +121,8 @@ class Solution:
                 - does not run if the lists are the same size
             - last loop: O(n)
                 - with the possibility of O(n+1) if there is any carry
+        Thus, the worst case is:
+            O(m) + O(n-m) + O(n+1)
         """
         # modifiable pointers for the ListNodes
         temp1, temp2 = l1, l2
@@ -114,24 +148,25 @@ class Solution:
         output.append(endDig)
         if carryOver > 0 and temp1.next is None and temp2.next is None:
             output.append(carryOver)
+        else:
+            # compute the final part of the sum i.e. if there are any extra digits
+            # if any of the inputs has extra digits this will add them to the sum
+            # for the example above, this will be 5, 3 and any carried over remainders
+            newCarry = carryOver
+            while temp1.next is not None:
+                newCarry, sumDig2 = Solution.addNumbers(temp1.next.val, newCarry)
+                output.append(sumDig2)
+                temp1 = temp1.next
+            while temp2.next is not None:
+                newCarry, sumDig2 = Solution.addNumbers(temp2.next.val, newCarry)
+                output.append(sumDig2)
+                temp2 = temp2.next
 
-        # compute the final part of the sum i.e. if there are any extra digits
-        # if any of the inputs has extra digits this will add them to the sum
-        # for the example above, this will be 5, 3 and any carried over remainders
-        while temp1.next is not None:
-            carryOver, sumDig2 = Solution.addNumbers(temp1.next.val, carryOver)
-            output.append(sumDig2)
-            temp1 = temp1.next
-        while temp2.next is not None:
-            carryOver, sumDig2 = Solution.addNumbers(temp2.next.val, carryOver)
-            output.append(sumDig2)
-            temp2 = temp2.next
-
-        # add the final carryOver (if any)
-        # this will be any additional digit that should increase the width
-        # of the output sum beyond the length of the longest input
-        if carryOver > 0:
-            output.append(carryOver)
+            # add the final carryOver (if any)
+            # this will be any additional digit that should increase the width
+            # of the output sum beyond the length of the longest input
+            if newCarry > 0:
+                output.append(newCarry)
 
         # build the output
         # from the list where the output has been accumulated
@@ -155,8 +190,11 @@ ll4 = ListNode(9, ListNode(9, ListNode(9)))
 ll5 = ListNode(0)
 ll6 = ListNode(0)
 
+ll7 = ListNode(5)
+ll8 = ListNode(5)
+
 # build output
-out = Solution.addTwoNumbers(ll4, ll3)
+out = Solution.addTwoNumbers2(ll1, ll2)
 
 # print out values
 while out.next is not None:
