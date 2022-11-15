@@ -40,19 +40,38 @@ class Solution:
         left = 0
         output = 0
 
-        # iterate through teh string
-        for i in range(0, len(s)):
-            # character has not been seen
-            if s[i] not in seen:
-                output = max(output, i-left+1)
+        # iterate through the string
+        
+        # for i in range(0, len(s)):
+        #     # character has not been seen
+        #     if s[i] not in seen:
+        #         output = max(output, i-left+1)
+        #     # character has been seen
+        #     else:
+        #         if seen[s[i]] < left:
+        #             # not in current window
+        #             output = max(output, i - left + 1)
+        #         else:
+        #             # in current window
+        #             left = seen[s[i]] + 1
+        #     seen[s[i]] = i
+            
+        # alternative looping implementation
+        # using enumerate
+        for i, j in enumerate(s):
+            # character has not been seen 
+            if j not in seen:
+                output = max(output, i - left + 1)
             # character has been seen
-            else:
-                if seen[s[i]] < left:
+            else: 
+                if seen[j] < left:
                     # not in current window
                     output = max(output, i - left + 1)
                 else:
                     # in current window
-                    left = seen[s[i]] + 1
-            seen[s[i]] = i
+                    left = seen[j] + 1
+            seen[j] = i
 
         return output
+
+print(Solution.lengthOfLongestSubstring("abcabcbb"))
