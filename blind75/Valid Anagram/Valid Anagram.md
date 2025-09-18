@@ -1,6 +1,23 @@
-# Solution
+# Question
 
-## Questions
+Given two strings s and t, return true if the two strings are anagrams of each other, otherwise return false.
+
+An anagram is a string that contains the exact same characters as another string, but the order of the characters can be different.
+
+Example 1:
+Input: s = "racecar", t = "carrace"
+Output: true
+
+Example 2:
+Input: s = "jar", t = "jam"
+Output: false
+
+Constraints:
+s and t consist of lowercase English letters.
+
+## Solution
+
+### Questions
 
 1. Can we assume the strings are exactly the same length?
     - If they're not equal length, we can immediately return False as they cannot be anagrams.
@@ -13,7 +30,7 @@
 4. Can the strings contain spaces or special characters?
     - If yes, should we consider them in our character count.
 
-## Python
+### Python
 
 Python has a data structure to keep track of frequencies, [Counter](https://docs.python.org/3/library/collections.html#collections.Counter).
 
